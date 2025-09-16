@@ -5,6 +5,10 @@
  - `$ git clone https://github.com/tmathmeyer/beamerthemedemuxed demuxed`
  - `$ xelatex -shell-escape -interaction=nostopmode slides.tex -o slides.pdf`
 
+## Screenshots
+![My HLS talk](https://raw.githubusercontent.com/tmathmeyer/beamerthemedemuxed/refs/heads/master/screenshots/hls-in-chrome.png "Example 2025 talk")
+
+
 ## Usage (slides.tex)
 ```LaTeX
 \documentclass{beamer}
