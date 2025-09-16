@@ -1,0 +1,25 @@
+
+\mode<presentation>
+
+\defbeamertemplate{headline}{demuxed} {
+  \ifnum\thepage>1\relax%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=0.6cm]{frametitle}
+    \begin{tikzpicture}
+    \useasboundingbox[fill=black](0,0) rectangle (\the\paperwidth,\the\paperheight);
+    \node[anchor=west,white] at (0.2, 0.3){\usebeamerfont{header}\inserttitle};
+    \node[anchor=east,white] at (\paperwidth-0.2,0.3){\usebeamerfont{header}\insertdate};
+    \end{tikzpicture}
+  \end{beamercolorbox}
+  \fi
+}
+
+% use: \framebackground{image.png}
+% put it just before the frame begins.
+% use \setbeamertemplate{background canvas}{} after the frame ends to reset.
+\newcommand{\framebackground}[1]{%
+  \setbeamertemplate{background canvas}{%
+    \includegraphics[width=\paperwidth,height=\paperheight]{#1}%
+  }%
+}
+
+\mode<all>

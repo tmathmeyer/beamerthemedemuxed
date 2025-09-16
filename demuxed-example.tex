@@ -1,0 +1,88 @@
+\documentclass{beamer}
+
+\title{HLS in Chrome (without JS)}
+\subtitle{The history, status, and future of a default HLS player in Chrome}
+\date[2025/09/15]{Demuxed '25}
+\author[Ted]{Ted Meyer}
+
+\usetheme{demuxed}
+\begin{document}
+
+%\framebackground{title.png}
+\begin{frame}
+    \settitleboxwidth{3.5cm}
+    \setbeamertemplate{headline}{}
+    \titlepage
+\end{frame}
+
+%\framebackground{tug.png}
+\begin{frame}
+    \begin{block}{1cm|1cm|7cm|Better late than never... I guess}
+        \begin{itemize}[<+->]
+            \item<1->{ 2008: Chrome is first released on Windows}
+            \item<2->{ 2009: Apple publishes HLS spec}
+            \item<3->{ 2013: Chrome launches MSE (the basis for ShakaPlayer, HLS.js, \& others)}
+            \item<4->{ 2014: ShakaPlayer is created} % December 19th
+            \item<5->{ 2015: HLS.js is created} % January 30th
+            \item<6->{ 2016: Chrome on Android supports HLS}
+            \item<7->{ 2021: HLS in Chrome work starts}
+            \item<8> {   One Eternity Later... }
+            \item<9->{ 2024: New HLS player on Chrome for Android}
+            \item<10->{ 2025: Chrome supports HLS on desktop}
+        \end{itemize}
+    \end{block}
+
+    \begin{block}<11->{3cm|4cm|8cm|What was wrong with the 2016 version?}
+        \begin{itemize}[<+->]
+            \item<12->Separate network stack
+            \begin{itemize}[<+->]
+                \item<13-> CORS security
+                \item<14-> Pixels tainted
+                \item<15-> Service workers
+            \end{itemize}
+            \item<16-> Extra IPC
+            \item<17-> Opaque to debugging
+            \item<18-> Android only
+        \end{itemize}
+    \end{block}
+\end{frame}
+\setbeamertemplate{background canvas}{}
+
+% Next up is an explanation of how this new player works, and what advantages
+% we can make use of by building it into the browser vs shipping packaged
+% javascript. I haven't yet decided how technical I will get when talking about
+% the chromium pipeline/demuxer/decoder architecture or how MSE works "under
+% the hood". The current version of the talk is intended for the chrome media
+% team, so it covers that stuff, but I haven't yet decided if that's the right
+% fit for the general Demuxed conference.
+\begin{frame}
+    \begin{block}{0.7cm|1.1cm|7cm|A default player for Chrome}
+        \begin{itemize}[<+->]
+            \item<1->Speed
+            \begin{itemize}[<+->]
+                \item<2-> No multi-MB libraries
+                \item<3-> No MP2T transmuxing
+                \item<4-> No waiting on JS
+            \end{itemize}
+            \item<5->Direct pipeline access
+            \begin{itemize}[<+->]
+                \item<6-> Any codec string
+                \item<7-> Create media tracks
+                \item<8-> Multiple MediaSource (ChunkDemuxer)
+            \end{itemize}
+        \end{itemize}
+    \end{block}
+
+    \begin{block}<9->{2.7cm|4.1cm|7cm|Why use a library?}
+        \begin{itemize}[<+->]
+            \item<10->Configurability
+            \begin{itemize}[<+->]
+                \item<11-> No ABR configuration
+                \item<12-> No telemetry
+                \item<13-> No manifest extensions
+            \end{itemize}
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\end{document}

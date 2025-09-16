@@ -1,0 +1,41 @@
+%% Copyright 2025 Ted Meyer - Licensed GPL v3 %%
+
+\ProvidesPackage{beamerthemedemuxed}[2025/09/16 v0.1 Demuxed Beamer theme]
+
+\mode<presentation>
+
+% Requirement
+\RequirePackage{tikz}
+\RequirePackage{fontspec}
+\RequirePackage{graphicx}
+
+\usetikzlibrary{backgrounds}
+\usetikzlibrary{calc}
+
+% Load font
+\newfontfamily\dogicapixel[
+  Path = demuxed/,
+  UprightFont = dogicapixel.ttf,
+  BoldFont = dogicapixelbold.ttf,
+  ItalicFont = dogicapixel.ttf,
+  BoldItalicFont = dogicapixelbold.ttf
+]{dogicapixel.ttf}
+
+% Settings
+\input{demuxed/beamerfontsthemedemuxed.sty}
+\input{demuxed/beamercolorthemedemuxed.sty}
+\input{demuxed/beamerinnerthemedemuxed.sty}
+\input{demuxed/beamerouterthemedemuxed.sty}
+
+% What the fuck is this shit?
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{blocks}[rounded][shadow=true]
+\setbeamertemplate{items}[square]
+\setbeamertemplate{subitems}[square]
+\setbeamertemplate{sections/subsections in toc}[square]
+
+\setbeamertemplate{headline}[demuxed]
+\setbeamertemplate{block begin}[window]
+\setbeamertemplate{block end}[window]
+
+\mode<all>

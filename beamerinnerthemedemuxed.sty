@@ -1,0 +1,97 @@
+\mode<presentation>
+
+\newlength{\titleboxwidth}
+\setlength{\titleboxwidth}{4cm}
+
+\newcommand{\settitleboxwidth}[1]{%
+    \setlength{\titleboxwidth}{#1}%
+}
+
+\defbeamertemplate*{title page}{demuxed}[1][]{
+    \begin{tikzpicture}[remember picture,overlay]
+    \node[anchor=north west, inner sep=0pt, draw=black, fill=white, line width=1pt] (titlebox) at ([xshift=1cm,yshift=-1cm]current page.north west) {%
+        \begin{minipage}{\titleboxwidth}
+        \begin{tikzpicture}
+            \node[anchor=east,font=\usebeamerfont{subtitle},text=black,inner sep=3pt] at (\titleboxwidth, 0) {- x};
+            \node[anchor=west,font=\usebeamerfont{date},text=black,inner sep=3pt] at (0, 0) {\insertdate};
+            \draw[color=black][line width=1pt] (0, -0.4em) -- (\titleboxwidth, -0.4em);
+        \end{tikzpicture}%
+
+        \begin{tikzpicture}
+            \node[anchor=west,font=\usebeamerfont{title}, text=black,inner sep=3pt, text width=\dimexpr\titleboxwidth-\pgfkeysvalueof{/pgf/inner xsep}\relax] at (0, 0) {\inserttitle};
+        \end{tikzpicture}\vspace{-\ht\strutbox}%
+
+        \begin{tikzpicture}[baseline=(current bounding box.south)]%
+            \draw[color=black][densely dotted] (0, 0) -- (\titleboxwidth, 0);%
+        \end{tikzpicture}%
+
+        \begin{tikzpicture}%
+            \node[anchor=west,font=\usebeamerfont{subtitle}, text=black,inner sep=3pt, text width=\dimexpr\titleboxwidth-\pgfkeysvalueof{/pgf/inner xsep}\relax] at (0, 0) {\insertsubtitle};%
+        \end{tikzpicture}\vspace{-\ht\strutbox}%
+
+        \begin{tikzpicture}%
+            \draw[color=black][densely dotted] (0, 0) -- (\titleboxwidth, 0);%
+        \end{tikzpicture}%
+
+        \vspace{0.1cm}%
+        \hbox to \linewidth{%
+            \hss
+            \begin{tikzpicture}
+            \node[
+                anchor=center,
+                fill=blue,
+                text=white,
+                rounded corners=1pt,
+                inner ysep=5pt,
+                inner xsep=6pt, % Added explicit inner xsep
+                text width=\dimexpr\linewidth-2\pgfkeysvalueof{/pgf/inner xsep}\relax,
+                align=center
+            ] {\usebeamerfont{author}\insertauthor};
+            \end{tikzpicture}%
+            \hss
+        }
+        \vspace{0.15cm}
+        \end{minipage}
+    };
+    \end{tikzpicture}
+}
+
+\newif\ifblockwindowcoords
+\def\WindowedX{0cm}
+\def\WindowedY{0cm}
+
+\defbeamertemplate{block begin}{window}{
+    \def\parsecoords####1|####2|####3|####4\relax{%
+        \gdef\WindowedTitle{####4}%
+        \gdef\WindowedX{####1}%
+        \gdef\WindowedY{####2}%
+        \gdef\WindowedW{####3}%
+    }%
+    \expandafter\parsecoords\insertblocktitle\relax
+    \begin{lrbox}{\@tempboxa} \begin{minipage}{\WindowedW} \usebeamerfont{block body}
+}
+
+\defbeamertemplate{block end}{window}{%
+    \end{minipage}%
+    \end{lrbox}%
+    \begin{tikzpicture}[remember picture, overlay]%
+        \node[anchor=north west] at ($(current page.north west) + (\WindowedX,-\WindowedY)$) {%
+            \begin{tikzpicture}
+                \node[draw=black, fill=white, line width=1pt, inner sep=0pt, text width=\WindowedW, anchor=north west] (demuxwindow) {%
+                    \begin{tikzpicture}
+                        \fill[black] (0,0) rectangle (\WindowedW,0.35);
+                        \node[anchor=west,font=\usebeamerfont{block title},text=white] at (0.25,0.175) {\WindowedTitle};
+                    \end{tikzpicture}
+                    \vskip4pt
+                    \noindent
+                    \begin{minipage}[t]{\WindowedW}
+                        \usebox{\@tempboxa}%
+                        \vspace{6pt}% bottom padding
+                    \end{minipage}
+                };
+            \end{tikzpicture}%
+        };
+    \end{tikzpicture}%
+}
+
+\mode<all>
