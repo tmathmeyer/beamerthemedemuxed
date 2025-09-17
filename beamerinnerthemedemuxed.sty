@@ -56,16 +56,13 @@
     \end{tikzpicture}
 }
 
-\newif\ifblockwindowcoords
-\def\WindowedX{0cm}
-\def\WindowedY{0cm}
-
 \defbeamertemplate{block begin}{window}{
-    \def\parsecoords####1|####2|####3|####4\relax{%
-        \gdef\WindowedTitle{####4}%
+    \def\parsecoords####1|####2|####3|####4|####5\relax{%
         \gdef\WindowedX{####1}%
         \gdef\WindowedY{####2}%
         \gdef\WindowedW{####3}%
+        \gdef\WindowedColor{####4}%
+        \gdef\WindowedTitle{####5}%
     }%
     \expandafter\parsecoords\insertblocktitle\relax
     \begin{lrbox}{\@tempboxa} \begin{minipage}{\WindowedW} \usebeamerfont{block body}
@@ -77,9 +74,9 @@
     \begin{tikzpicture}[remember picture, overlay]%
         \node[anchor=north west] at ($(current page.north west) + (\WindowedX,-\WindowedY)$) {%
             \begin{tikzpicture}
-                \node[draw=black, fill=white, line width=1pt, inner sep=0pt, text width=\WindowedW, anchor=north west] (demuxwindow) {%
+                \node[draw=\WindowedColor, fill=white, line width=1pt, inner sep=0pt, text width=\WindowedW, anchor=north west] (demuxwindow) {%
                     \begin{tikzpicture}
-                        \fill[black] (0,0) rectangle (\WindowedW,0.35);
+                        \fill[\WindowedColor] (0,0) rectangle (\WindowedW,0.35);
                         \node[anchor=west,font=\usebeamerfont{block title},text=white] at (0.25,0.175) {\WindowedTitle};
                     \end{tikzpicture}
                     \vskip4pt

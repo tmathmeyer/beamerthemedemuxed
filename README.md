@@ -35,8 +35,8 @@
 \framebackground{img/slide_background.png}
 \begin{frame}
     % Beamer blocks are rendered as fake "window" views - the format for
-    % The title is Xpos|Ypos|Width|WindowTitle
-    \begin{block}{1cm|1cm|7cm|This is a window title}
+    % The title is Xpos|Ypos|Width|xcolor|WindowTitle
+    \begin{block}{1cm|1cm|7cm|black|This is a window title}
         \begin{itemize}[<+->]
             \item<1->{ First Bullet }
             \item<2->{ Second Bullet }
@@ -46,7 +46,7 @@
 
     % Like all beamer objects, you can specify when a block becomes visible -
     % This one will be visible on the 4th iteration of this slide.
-    \begin{block}<4->{3cm|4cm|8cm|Windows Windows Everywhere}
+    \begin{block}<4->{3cm|4cm|8cm|red|Windows Windows Everywhere}
         \begin{itemize}[<+->]
             \item<4-> Another Bullet
             \item<5-> Another another bullet
